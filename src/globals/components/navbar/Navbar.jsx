@@ -1,7 +1,11 @@
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 
 
 export default function Navbar() {
+    const navigate = useNavigate()
+    const items = useSelector((state)=>state.cart)
   return (
     <>
 
@@ -9,9 +13,9 @@ export default function Navbar() {
             <div className="container px-2 m-auto md:px-12 lg:px-7">
                 <div className="flex flex-wrap items-center justify-between gap-6 py-3 md:py-4 md:gap-0">
                     <div className="flex justify-between w-full px-6 lg:w-max md:px-0">
-                        <a href="https://tailus.io/blocks/hero-section" aria-label="logo" className="flex items-center space-x-2">
+                        <a href="" onClick={()=>navigate("/")} aria-label="logo" className="flex items-center space-x-2">
                             <img src="https://tailus.io/sources/blocks/food-delivery/preview/images/icon.png" className="w-12" alt="tailus logo" width="144" height="133" />
-                            <span className="text-2xl font-bold text-yellow-900">Tailus <span className="text-yellow-700">Feedus</span></span>
+                            <span className="text-2xl font-bold text-yellow-900">Digital <span className="text-yellow-700">MoMo</span></span>
                         </a>
     
                         <button aria-label="humburger" id="hamburger" className="relative w-10 h-10 -mr-2 lg:hidden">
@@ -34,8 +38,8 @@ export default function Navbar() {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block transition md:px-4 hover:text-yellow-700">
-    <span>Cart <sup>2</sup> </span>
+                                    <a href="#" onClick={()=>navigate("/cart")} className="block transition md:px-4 hover:text-yellow-700">
+    <span>Cart <sup>{items.length}</sup> </span>
                                     </a>
                                 </li>
                             </ul>
