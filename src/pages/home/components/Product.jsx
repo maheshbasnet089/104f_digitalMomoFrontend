@@ -1,12 +1,12 @@
-import axios from "axios"
 import { useEffect } from "react"
-import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { add } from "../../../store/cartSlice"
 import { fetchProducts } from "../../../store/productSlice"
+import {Link, useNavigate} from 'react-router-dom'
 
   export default function Product() {
  
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const {data : products,status} =  useSelector((state)=>state.product)
     
@@ -36,10 +36,11 @@ import { fetchProducts } from "../../../store/productSlice"
 
        <div className="flex flex-wrap justify-between">
  
+   
        {
         products.map((product)=>{
           return (
-            <div key={product._id} className="mx-auto overflow-hidden duration-300 transform bg-white rounded-lg shadow-md mt-11 w-80 dark:bg-slate-800 hover:scale-105 hover:shadow-lg">
+            <div onClick={()=>navigate(`/productdetails/${product._id}`)} key={product._id} className="mx-auto overflow-hidden duration-300 transform bg-white rounded-lg shadow-md mt-11 w-80 dark:bg-slate-800 hover:scale-105 hover:shadow-lg">
             <img className="object-cover object-center w-full h-48" src={product.productImage} alt="Product Image" />
             <div className="p-4">
               <h2 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">{product.productName}</h2>
@@ -55,7 +56,8 @@ import { fetchProducts } from "../../../store/productSlice"
           </div>
           )
         })
-       }
+      }
+    
 
    
        </div>
