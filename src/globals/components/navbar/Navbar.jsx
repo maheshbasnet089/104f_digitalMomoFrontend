@@ -1,11 +1,30 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { logOut } from "../../../store/authSlice"
+import { fetchCartItems } from "../../../store/cartSlice"
+import { useEffect } from "react"
 
 
 
 export default function Navbar() {
+    const {data:user} = useSelector((state)=>state.auth)
     const navigate = useNavigate()
-    const items = useSelector((state)=>state.cart)
+    const {items} = useSelector((state)=>state.cart)
+    const dispatch = useDispatch()
+
+    
+ const handleLogOut = ()=>{
+    // empty the data from auth store
+    dispatch(logOut())
+    // localstorage remove/clear 
+    localStorage.removeItem('token')
+    navigate("/login")
+ }
+
+ useEffect(()=>{
+    dispatch(fetchCartItems())
+ },[dispatch])
+    
   return (
     <>
 
@@ -46,7 +65,11 @@ export default function Navbar() {
                         </div>
     
                         <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
-                            <button type="button" title="Start buying" className="w-full px-6 py-3 text-center transition rounded-full active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                         {
+                            user.length ==0 && (localStorage.getItem('token') == "" || localStorage.getItem("token") == null || localStorage.getItem('token') == undefined) ?
+                            (
+                                <>
+                                <button type="button" title="Start buying" className="w-full px-6 py-3 text-center transition rounded-full active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
                                 <span className="block text-sm font-semibold text-yellow-800">
                                    <Link to="/register">Register</Link>
                                 </span>
@@ -55,7 +78,15 @@ export default function Navbar() {
                                 <span className="block text-sm font-semibold text-yellow-900">
                                 <Link to="/login">Login</Link>
                                 </span>
-                            </button>
+                            </button></>
+                            ) :
+                            <button onClick={handleLogOut} type="button" title="Start buying" className="w-full px-6 py-3 text-center transition bg-yellow-300 rounded-full hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                            <span className="block text-sm font-semibold text-yellow-900">
+                            Log Out
+                            </span>
+                             </button>
+                         }
+                           
                         </div>
                     </div>
                 </div>

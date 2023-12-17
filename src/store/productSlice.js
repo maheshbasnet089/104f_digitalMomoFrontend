@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import API from "../http";
+import {API} from "../http";
 
 
 const STATUSES = Object.freeze({
     SUCCESS : 'success',
-    ERROR : 'error',
+ERROR : 'error',
     LOADING : 'loading'
 })
 
