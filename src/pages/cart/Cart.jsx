@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './Cart.css'
-import { udpateCartItem } from '../../store/cartSlice'
+import { deleteCartItem, udpateCartItem } from '../../store/cartSlice'
+import {useNavigate} from 'react-router-dom'
 const Cart = () => {
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
     const {items:products} = useSelector((state)=>state.cart)
     console.log(products)
@@ -11,6 +14,10 @@ const Cart = () => {
 
   const handleQuantityChange = (productId, newQuantity)=>{
     dispatch(udpateCartItem(productId,newQuantity))
+  }
+
+  const handleDelete = (productId)=>{
+    dispatch(deleteCartItem(productId))
   }
     
   return (
@@ -33,7 +40,7 @@ const Cart = () => {
                   <input className="w-8 h-8 text-xs text-center bg-white border outline-none" type="number" value={product.quantity} min="1" onChange={(e)=>handleQuantityChange(product.product._id,e.target.value)}  />
                   <span className="px-3 py-1 duration-100 bg-gray-100 rounded-r cursor-pointer hover:bg-blue-500 hover:text-blue-50" onClick={()=>handleQuantityChange(product.product._id,product.quantity + 1)} > + </span>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4" onClick={()=>handleDelete(product.product._id)} >
                   <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 duration-150 cursor-pointer hover:text-red-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -59,7 +66,7 @@ const Cart = () => {
             <p className="mb-1 text-lg font-bold">Rs. {totalAmountOfCart}</p>
           </div>
         </div>
-        <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+        <button onClick={()=>navigate('/checkout')} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
       </div>
     </div>
   </div>

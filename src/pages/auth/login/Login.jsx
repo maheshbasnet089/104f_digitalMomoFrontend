@@ -24,6 +24,7 @@ const Login = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
     dispatch(loginUser(userData))
+    
      navigate("/")
  
     // if(status === STATUSES.ERROR){

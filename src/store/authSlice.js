@@ -61,7 +61,9 @@ export function loginUser(data){
             dispatch(setUser(response.data.data))
             dispatch(setToken(response.data.token))
             dispatch(setStatus(STATUSES.SUCCESS))
-            localStorage.setItem('token',response.data.token)
+            if(response.status === 200 && response.data.token){
+                localStorage.setItem('token',response.data.token)
+            }
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))
