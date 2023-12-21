@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault()
     dispatch(loginUser(userData))
     
-     navigate("/")
+  
  
     // if(status === STATUSES.ERROR){
     //     alert("Something went wrong, Try again")

@@ -4,6 +4,8 @@ import {useForm} from "react-hook-form"
 import { createOrder } from '../../store/checkoutSlice'
 import { STATUSES } from '../../globals/misc/statuses'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { APIAuthenticated } from '../../http'
 
 const CheckOut = () => {
     const {items:products} = useSelector((state)=>state.cart)
@@ -12,7 +14,6 @@ const CheckOut = () => {
    const {register,handleSubmit,formState} = useForm()
    const [paymentMethod,setPaymentMethod] = useState("COD")
    const {status,data} = useSelector((state)=>state.checkout)
-   console.log(data)
    const subTotal = products.reduce((amount,item)=>item.quantity * item.product.productPrice + amount,0)
    const shippingAmount = 100
    const totalAmount = subTotal + shippingAmount
@@ -37,9 +38,9 @@ const CheckOut = () => {
         return alert("Order placed successfully")
      }  
     if(status === STATUSES.SUCCESS && paymentMethod === "khalti" ){
-        const {totalAmount,_id} = data[data.length -1]
+        const {totalAmount,_id:orderId} = data[data.length -1]
         
-       return navigate(`/khalti?orderid=${_id}&totalamount=${totalAmount}`)
+       handleKhalti(orderId,totalAmount)
     }
 
    }
@@ -52,6 +53,19 @@ const CheckOut = () => {
     setPaymentMethod(e.target.value)
 
    }
+   const handleKhalti = async (orderId,totalAmount)=>{
+    try {
+      const response = await APIAuthenticated.post('/payment',{orderId,amount:totalAmount})
+      if(response.status === 200){
+        window.location.href = response.data.paymentUrl
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+   }
+
+
   return (
     <>
     <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
@@ -159,7 +173,12 @@ const CheckOut = () => {
         <p className="text-2xl font-semibold text-gray-900">Rs {totalAmount}</p>
       </div>
     </div>
-    <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+  {
+    paymentMethod === "COD" ? (
+      <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+    ) :
+    (  <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" style={{backgroundColor:'purple'}}>Pay With Khalti</button>)
+  }
   </div>
  </form>
 </div>
