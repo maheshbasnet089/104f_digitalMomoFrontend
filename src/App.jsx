@@ -15,6 +15,8 @@ import KhaltiSuccess from './pages/success/KhaltiSuccess'
 import UserProfile from './pages/profile/UserProfile'
 import MyOrders from './pages/myOrders/MyOrders'
 import OrderDetails from './pages/orderDetails/orderDetails'
+import AdminDashboard from './pages/admin/dashboard/AdminDashboard'
+import ProtectedRoute, { ProctectedRouteForVendor } from './pages/ProtectRoute'
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
    <Route path="/profile" element={<UserProfile />} />
    <Route path="/myorders" element={<MyOrders />} />
    <Route path="/myorders/:id" element={<OrderDetails />} />
+   {/* <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+   <Route path="/vendor" element={<ProctectedRouteForVendor><VendorDashboard /></ProctectedRouteForVendor>} /> */}
    </Routes>
    <Footer/>
    </BrowserRouter>

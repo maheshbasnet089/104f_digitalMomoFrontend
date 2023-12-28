@@ -1,7 +1,7 @@
 import {  createSlice } from "@reduxjs/toolkit";
 
 import { STATUSES } from "../globals/misc/statuses";
-import {API} from "../http";
+import {API, APIAuthenticated} from "../http";
 
 
 
@@ -65,6 +65,22 @@ export function loginUser(data){
                 localStorage.setItem('token',response.data.token)
                 window.location.href = "/"
             }
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+
+export function fetchProfile(){
+    return async function fetchProfileThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.get("profile/")
+            dispatch(setUser(response.data.data))
+         
+            dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))

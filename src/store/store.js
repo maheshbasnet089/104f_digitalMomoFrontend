@@ -6,6 +6,7 @@ import checkoutSlice from "./checkoutSlice";
 
 const store = configureStore({
     reducer : {
+        
         cart : cartReducer,
         product : productReducer,
         auth : authSlice,
