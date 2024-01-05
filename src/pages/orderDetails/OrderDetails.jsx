@@ -2,14 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { APIAuthenticated } from '../../http'
+import QRCode from "react-qr-code";
+
 
 const OrderDetails = () => {
     const {id} = useParams()
     const navigate = useNavigate()
     const {orders} = useSelector((state)=>state.checkout)
     const [filteredOrder] = orders.filter((order)=>order._id === id)
-    console.log(filteredOrder)
-
+  const adminOrderPageUrl = `http://localhost:3001/admin/orders/${id}`
     const cancelOrder = async()=>{
       try {
         const response = await APIAuthenticated.patch("/orders/cancel",{id})
@@ -108,7 +109,8 @@ const OrderDetails = () => {
             </div>
           </div>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-2 md:p-1 xl:p-8 flex-col" style={{height:'200px'}}>
+     <div>
+     <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-2 md:p-1 xl:p-8 flex-col" style={{height:'300px'}}>
           <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">Customer</h3>
           <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
       
@@ -142,6 +144,14 @@ const OrderDetails = () => {
             </div>
           </div>
         </div>
+
+
+   <div className="bg-white-50 dark:bg-white-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-2 md:p-1 xl:p-8 flex-col" style={{height:'300px',marginTop:'10px'}}>
+                  <QRCode value={adminOrderPageUrl} />
+        </div>
+
+     </div>
+        
       </div>
     </div>
   )

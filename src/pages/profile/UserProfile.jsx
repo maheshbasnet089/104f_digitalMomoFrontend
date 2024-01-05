@@ -17,21 +17,21 @@ const UserProfile = () => {
                     <div className="grid grid-cols-2 gap-4 px-2 w-full">
                         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{border:'1px solid navy',display:'flex',alignItems:'center',justifyContent:'center'}}>
                         
-                        <Link to='/myorders' className="text-base font-medium text-blue-700 dark:text-white">
+                        <Link to='/myorders' className="text-base font-medium text-blue-700 dark:text-dark">
                             My Orders
                         </Link>
                         </div>
     
                         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{border:'1px solid navy',display:'flex',alignItems:'center',justifyContent:'center'}}>
                         
-                        <Link to='/myorders' className="text-base font-medium text-blue-700 dark:text-white">
-                            My Orders
+                        <Link to='/myorderqrs' className="text-base font-medium text-blue-700 dark:text-dark">
+                            My Order Qrs
                         </Link>
                         </div>
     
                         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{border:'1px solid navy',display:'flex',alignItems:'center',justifyContent:'center'}}>
                         
-                        <Link to='/myorders' className="text-base font-medium text-blue-700 dark:text-white">
+                        <Link to='/myorders' className="text-base font-medium text-blue-700 dark:text-dark">
                             My Orders
                         </Link>
                         </div>
