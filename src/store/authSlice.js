@@ -12,7 +12,8 @@ const authSlice = createSlice({
     initialState :{
         data : [],
         status : STATUSES.SUCCESS,
-        token : ""
+        token : "",
+        
     },
     reducers : {
        setUser(state,action){
@@ -28,13 +29,16 @@ const authSlice = createSlice({
         state.data = []
         state.token = null
         state.state = STATUSES.SUCCESS
+       },
+       setEmail(state,action){
+        state.email = action.payload
        }
     },
 
 
 })
 
-export const {setUser,setStatus,setToken,logOut} = authSlice.actions 
+export const {setUser,setStatus,setToken,logOut,setEmail} = authSlice.actions 
 
 export default authSlice.reducer 
 
@@ -87,3 +91,35 @@ export function fetchProfile(){
         }
     }
 }
+
+export function forgotPassword(data){
+    return async function forgotPasswordThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.post("auth/forgotPassword/",data)
+            dispatch(setEmail(response.data.data))
+         
+            dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+export function verifyotp(data){
+    return async function verifyotpThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.post("auth/verifyOtp/",data)
+            // dispatch(setUser(response.data.data))
+         
+            dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+

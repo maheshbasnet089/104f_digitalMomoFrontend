@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../../store/authSlice"
 import { STATUSES } from "../../../globals/misc/statuses"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -55,6 +55,7 @@ const Login = () => {
             <input type="password" id="password" name="password" onChange={handleChange} className="w-full py-2 pl-12 bg-gray-200 md:py-4 focus:outline-none" placeholder="Password" />
           </div>
           <button className="w-full p-2 font-medium text-white uppercase bg-gradient-to-b from-gray-700 to-gray-900 md:p-4">Login</button>
+          <Link to="/forgotpassword" style={{color : 'blue'}}>Forgot Password ?</Link>
         </form>
       </div>
      </div>

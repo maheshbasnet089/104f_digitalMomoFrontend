@@ -16,8 +16,11 @@ import UserProfile from './pages/profile/UserProfile'
 import MyOrders from './pages/myOrders/MyOrders'
 import OrderDetails from './pages/orderDetails/orderDetails'
 import MyOrderQrs from './pages/MyOrderQrs/MyOrderQrs'
+import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword'
+import VerifyOtp from './pages/auth/verifyOtp/VerifyOtp'
 // import AdminDashboard from './pages/admin/dashboard/AdminDashboard'
 // import ProtectedRoute, { ProctectedRouteForVendor } from './pages/ProtectRoute'
+
 
 
 function App() {
@@ -43,6 +46,10 @@ function App() {
    <Route path="/myorders" element={<MyOrders />} />
    <Route path="/myorderqrs" element={<MyOrderQrs />} />
    <Route path="/myorders/:id" element={<OrderDetails />} />
+   <Route path="/forgotpassword" element={<ForgotPassword />} />
+   <Route path="/verifyotp" element={<VerifyOtp />} />
+   {/* <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+   <Route path="/forgotpassword" element={<ForgotPassword />} />
    {/* <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
    <Route path="/vendor" element={<ProctectedRouteForVendor><VendorDashboard /></ProctectedRouteForVendor>} /> */}
    </Routes>
