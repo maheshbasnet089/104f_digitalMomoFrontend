@@ -13,6 +13,10 @@ const authSlice = createSlice({
         data : [],
         status : STATUSES.SUCCESS,
         token : "",
+       forgotPasswordData : {
+        email : null, 
+        status : STATUSES.LOADING
+       }
         
     },
     reducers : {
@@ -31,14 +35,17 @@ const authSlice = createSlice({
         state.state = STATUSES.SUCCESS
        },
        setEmail(state,action){
-        state.email = action.payload
+        state.forgotPasswordData.email = action.payload
+       },
+       setForgotPasswordDataStatus(state,action){
+        state.forgotPasswordData.status = action.payload
        }
     },
 
 
 })
 
-export const {setUser,setStatus,setToken,logOut,setEmail} = authSlice.actions 
+export const {setUser,setStatus,setToken,logOut,setEmail,setForgotPasswordDataStatus} = authSlice.actions 
 
 export default authSlice.reducer 
 
@@ -70,7 +77,7 @@ export function loginUser(data){
                 window.location.href = "/"
             }
         } catch (error) {
-            console.log(error)
+            alert("Something went wrong")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }
@@ -113,8 +120,8 @@ export function verifyotp(data){
         try {
             const response = await APIAuthenticated.post("auth/verifyOtp/",data)
             // dispatch(setUser(response.data.data))
-         
-            dispatch(setStatus(STATUSES.SUCCESS))
+            dispatch(setEmail(data.email))
+            dispatch(setForgotPasswordDataStatus(STATUSES.SUCCESS))
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))

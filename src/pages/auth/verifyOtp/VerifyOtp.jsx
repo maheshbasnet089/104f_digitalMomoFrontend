@@ -7,10 +7,12 @@ import { Link, useNavigate } from "react-router-dom"
 const VerifyOtp = () => {
   const [otp,setOtp] = useState(null)
   const navigate = useNavigate()
-  const {status,email} = useSelector((state)=>state.auth)
+
+  const {forgotPasswordData} = useSelector((state)=>state.auth)
+  console.log(forgotPasswordData)
     const dispatch = useDispatch()
     const data2 = {
-        email : email , 
+        email : forgotPasswordData.email , 
         otp : otp
     }
   const handleSubmit = (e)=>{
@@ -19,11 +21,11 @@ const VerifyOtp = () => {
 
   }
   
-//   useEffect(()=>{
-//     if(status === STATUSES.SUCCESS){
-//         // navigate("/resetpassword")
-//     }
-//   },[status])
+  useEffect(()=>{
+    if(forgotPasswordData.status === STATUSES.SUCCESS){
+        navigate("/resetPassword")
+    }
+  },[forgotPasswordData.status])
   return (
     <div className="flex items-center justify-center h-screen overflow-hidden bg-yellow-50">
       <div className="mt-20 bg-white w-17/12 lg:w-5/12 md:6/12 shadow-3xl ">

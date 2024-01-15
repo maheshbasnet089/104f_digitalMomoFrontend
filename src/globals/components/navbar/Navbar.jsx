@@ -47,12 +47,14 @@ export default function Navbar() {
                     <div className="flex-wrap items-center justify-end hidden w-full p-6 space-y-6 bg-white lg:flex rounded-xl md:space-y-0 md:p-0 md:flex-nowrap md:bg-transparent lg:w-7/12">
                         <div className="text-gray-600 lg:pr-4">
                             <ul className="space-y-6 text-sm font-medium tracking-wide md:flex md:space-y-0">
-                                <li>
-                                    <Link to="/profile" className="block transition md:px-4 hover:text-yellow-700">
-    <span>Profile</span>
-                                    </Link>
-                                </li>
 
+{
+    user.length>0 || localStorage.getItem("token") &&                                 <li>
+    <Link to="/profile" className="block transition md:px-4 hover:text-yellow-700">
+<span>Profile</span>
+    </Link>
+</li>
+}
                            {
                             items.length !== 0 && (
                                 <li>
