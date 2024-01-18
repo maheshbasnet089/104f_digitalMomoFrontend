@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { fetchOrder } from '../../store/checkoutSlice'
+import { fetchOrder, updateOrderStatusInStore } from '../../store/checkoutSlice'
 import {useNavigate} from 'react-router-dom'
+import {socket} from './../../App'
 
 const MyOrders = () => {
     const dispatch = useDispatch()
@@ -14,6 +15,12 @@ const MyOrders = () => {
     useEffect(()=>{
         dispatch(fetchOrder())
     },[])
+
+    useEffect(()=>{
+        socket.on("statusUpdated",(data)=>{
+           dispatch(updateOrderStatusInStore(data))
+        })
+    },[socket])
 
     // const filteredOrders = selectedItem === "all" ? orders : orders.filter((order)=>order.orderStatus === selectedItem)
     const filteredOrders = orders?.filter((order)=>selectedItem === 'all' || order.orderStatus === selectedItem )
