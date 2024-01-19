@@ -22,7 +22,7 @@ import ResetPassword from './pages/auth/resetPassword/ResetPassword'
 // import AdminDashboard from './pages/admin/dashboard/AdminDashboard'
 // import ProtectedRoute, { ProctectedRouteForVendor } from './pages/ProtectRoute'
 import {io} from 'socket.io-client'
-export const socket = io("http://localhost:3000",{
+export const socket = io("https://momobackend.onrender.com/",{
   auth : {
     token : localStorage.getItem('token')
   }
